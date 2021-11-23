@@ -26,8 +26,8 @@ class Base(Resource):
 class TextReadability(Resource):
 
     def __init__(self):
-        # nltk.download('stopwords')
-        # nltk.download('wordnet')
+        nltk.download('stopwords')
+        nltk.download('wordnet')
         self.loaded_vectorizer = pickle.load(open(VECTORIZER, 'rb'))
         self.loaded_model = pickle.load(open(MODEL, 'rb'))
 
