@@ -1,10 +1,10 @@
-import json
+import pandas as pd
 import requests
 from numpy.random import randint
 
 
 def test_text_readability_scoring():
-    x_test = pd.read_csv('test.csv')
+    x_test = pd.read_csv('data/test.csv')
     rand_text_ind = randint(0, len(x_test))
     rand_text = x_test.excerpt.loc[rand_text_ind]
 
