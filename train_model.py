@@ -3,9 +3,8 @@ import re
 import pickle
 import pandas as pd
 import numpy as np
+import nltk
 
-from nltk.corpus                        import stopwords
-from nltk.stem                          import WordNetLemmatizer
 from helper.text_helpers                import clean_text
 
 from sklearn.linear_model               import Ridge
@@ -13,16 +12,14 @@ from sklearn.model_selection            import train_test_split
 from sklearn.feature_extraction.text    import TfidfVectorizer
 from sklearn.metrics                    import mean_squared_error
 
-# nltk==3.6.1
-# import nltk
-# nltk.download('stopwords')
-# nltk.download('wordnet')
 
 
 def train_model():
 
     # Load data
     x_train = pd.read_csv('data/train.csv')
+    nltk.download('stopwords')
+    nltk.download('wordnet')
     print('Data has been loaded')
     # Basic text preprocessing before building model
     x_train['excerpt'] = x_train['excerpt'].apply(lambda x : clean_text(x))

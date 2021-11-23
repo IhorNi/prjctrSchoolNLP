@@ -3,8 +3,8 @@ import pickle
 import pandas as pd
 import numpy as np
 
-from flask                              import Flask, abort, jsonify, make_response, render_template
-from flask_restful                      import Resource, Api, reqparse, inputs
+from flask                              import Flask
+from flask_restful                      import Resource, Api, reqparse
 from helper.text_helpers                import clean_text
 
 VECTORIZER = 'nlp_models/text_vectorizer.sav'
@@ -26,8 +26,8 @@ class Base(Resource):
 class TextReadability(Resource):
 
     def __init__(self):
-        nltk.download('stopwords')
-        nltk.download('wordnet')
+        # nltk.download('stopwords')
+        # nltk.download('wordnet')
         self.loaded_vectorizer = pickle.load(open(VECTORIZER, 'rb'))
         self.loaded_model = pickle.load(open(MODEL, 'rb'))
 
@@ -47,11 +47,11 @@ class TextReadability(Resource):
             read_score = self.get_readability_score(args['text'])
             return {'readability_score': read_score}
         else:
-            return f"<p>{args['text']}</p>"
+            return {'error': 'No text for readability scoring provided'}
 
 
 api.add_resource(Base, '/')
-api.add_resource(TextReadability, '/get_text_redability')
+api.add_resource(TextReadability, '/get_text_readability')
 
 
 if __name__ == '__main__':
